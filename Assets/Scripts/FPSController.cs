@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSController : MonoBehaviour
 {
@@ -23,10 +24,13 @@ public class FPSController : MonoBehaviour
 
     private Vector3 _move = Vector3.zero;
 
+
     void Start()
     {
        Cursor.lockState = CursorLockMode.Locked;
         _characterControler = GetComponent<CharacterController>();
+        _currentHealth = _maxHealth;
+        _healthBar.SetMaxHealth(_maxHealth);
     }
 
     void Update()
@@ -61,5 +65,28 @@ public class FPSController : MonoBehaviour
       _move.y -= _gravity * Time.deltaTime;
 
         _characterControler.Move(_move * Time.deltaTime);
+    }
+
+    // Take Damage
+
+    public HealthBar _healthBar;
+
+    public int _maxHealth = 100;
+    public int _currentHealth;
+    public EnemyMov _enemy;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Sword") && _enemy._isAttacking)
+        {
+            TakeDamage(20);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+
+        _healthBar.SetHealth(_currentHealth);
     }
 }
