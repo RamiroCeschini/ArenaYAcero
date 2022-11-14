@@ -31,6 +31,7 @@ public class FPSController : MonoBehaviour
         _characterControler = GetComponent<CharacterController>();
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -69,11 +70,15 @@ public class FPSController : MonoBehaviour
 
     // Take Damage
 
+    [Header("Barra de Vida")]
+
     public HealthBar _healthBar;
 
     public int _maxHealth = 100;
     public int _currentHealth;
     public EnemyMov _enemy;
+    public AudioClip _hitSound;
+    public AudioSource _audioSource;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -85,6 +90,10 @@ public class FPSController : MonoBehaviour
 
     void TakeDamage(int damage)
     {
+        _audioSource.PlayOneShot(_hitSound);
+        
+        _enemy._isAttacking= false;
+        
         _currentHealth -= damage;
 
         _healthBar.SetHealth(_currentHealth);

@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour
 {
     public GameObject _sword;
     public bool _canAttack = true;
+    public bool _didAttack = false;
     public float _attackCooldown = 1f;
     public bool _swordposition = true; //true = derecha false = izquierda
 
@@ -43,6 +44,7 @@ public class WeaponController : MonoBehaviour
         }
 
         _canAttack = false;
+        _didAttack= true;
         Animator _anim = _sword.GetComponent<Animator>();
         _anim.SetTrigger("Atack");
 
@@ -64,5 +66,6 @@ public class WeaponController : MonoBehaviour
     {
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
+        _didAttack = false;
     }
 }
