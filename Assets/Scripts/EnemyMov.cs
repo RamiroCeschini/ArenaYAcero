@@ -113,11 +113,13 @@ public class EnemyMov : MonoBehaviour
 
     void Die()
     {
+        _isAttacking = false;
         _anim.SetTrigger("Death");
         _anim.SetBool("isAlive", false);
         _isDeath = true;
         _agent.isStopped = true;
         _audioSource.PlayOneShot(_deathSound);
+
     }
 
 }
