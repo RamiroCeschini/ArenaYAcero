@@ -68,7 +68,6 @@ public class FPSController : MonoBehaviour
         _characterControler.Move(_move * Time.deltaTime);
     }
 
-    // Take Damage
 
     [Header("Barra de Vida")]
 
@@ -76,23 +75,15 @@ public class FPSController : MonoBehaviour
 
     public int _maxHealth = 100;
     public int _currentHealth;
-    public EnemyMov _enemy;
+
+    [Header("Audio")]
     public AudioClip _hitSound;
     public AudioSource _audioSource;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Sword") && _enemy._isAttacking)
-        {
-            TakeDamage(20);
-        }
-    }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         _audioSource.PlayOneShot(_hitSound);
-        
-        _enemy._isAttacking= false;
         
         _currentHealth -= damage;
 
