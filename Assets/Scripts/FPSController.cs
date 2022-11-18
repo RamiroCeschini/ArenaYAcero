@@ -89,4 +89,15 @@ public class FPSController : MonoBehaviour
 
         _healthBar.SetHealth(_currentHealth);
     }
+
+    public LobbyController _lobby;
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("NPC"))
+        {
+            Debug.Log("Toco");
+            _lobby.NPCTrigger();
+        }
+    }
 }
