@@ -15,7 +15,7 @@ public class EnemySword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _enemy._isAttacking == true)
+        if (other.CompareTag("Player") && _enemy._isAttacking == true && _enemy._isDeath == false)
         {
             _player.TakeDamage(_damage);
             _enemy._isAttacking = false;

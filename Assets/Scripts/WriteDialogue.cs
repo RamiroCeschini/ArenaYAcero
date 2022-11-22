@@ -11,6 +11,8 @@ public class WriteDialogue : MonoBehaviour
 
     public float textSpeed = 0.4f;
 
+    public LobbyController _controller;
+
     int index;
     void Start()
     {
@@ -63,7 +65,7 @@ public class WriteDialogue : MonoBehaviour
 
         else
         {
-            gameObject.SetActive(false);
+            _controller.NPCTriggerOff();
         }
     }
 }

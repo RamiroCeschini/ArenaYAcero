@@ -32,6 +32,7 @@ public class EnemyMov : MonoBehaviour
     public int _maxHealth = 60;
     public int _currentHealth;
     public WeaponController _playerSword;
+    public KillCounter _killCounter;
 
 
 
@@ -126,6 +127,7 @@ public class EnemyMov : MonoBehaviour
 
     void Die()
     {
+        _killCounter.KillCount();
         _isAttacking = false;
         _anim.SetTrigger("Death");
         _anim.SetBool("isAlive", false);
