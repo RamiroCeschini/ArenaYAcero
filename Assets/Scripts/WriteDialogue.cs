@@ -65,7 +65,7 @@ public class WriteDialogue : MonoBehaviour
 
         else
         {
-            _controller.NPCTriggerOff();
+            _controller.GameMomentEnd();
         }
     }
 }

@@ -7,28 +7,35 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    public GameObject _dialoguePanel;
+    public LobbyController _controller;
+    public GameObject _dialoguePanel1;
+    public GameObject _dialoguePanel2;
     public GameObject _NPCLight;
     public GameObject _levelTrigger;
     public Animator _NPCanim;
     public FPSController _playerScript;
     public Fade _fadeController;
+    public int _gameStage;
 
-    public void NPCTrigger()
+    private void Start()
     {
-       _dialoguePanel.SetActive(true);
+        _controller = GetComponent<LobbyController>();
+        _gameStage = GameState.GameStateRead();
+    }
+    public void NPCTrigger(GameObject panelDialogo)
+    {
+       panelDialogo.SetActive(true);
         _NPCLight.SetActive(false);
         _NPCanim.SetTrigger("Talk");
 
         _playerScript._walkSpeed = 0;
         _playerScript._runSpeed = 0;
         _playerScript._jumpSpeed = 0;
-        Debug.Log("Trigger");
     }
 
-    public void NPCTriggerOff()
+    public void NPCTriggerOff(GameObject panelDialogo)
     {
-        _dialoguePanel.SetActive(false);
+        panelDialogo.SetActive(false);
         _NPCanim.SetTrigger("Idle");
         _playerScript._walkSpeed = 3;
         _playerScript._runSpeed = 6;
@@ -38,10 +45,35 @@ public class LobbyController : MonoBehaviour
     
     public void GoToScene()
     {
-        _fadeController.FadeToLevel(1);
+        _fadeController.FadeToLevel(2);
     }
 
+    public void GameMomentStart()
+    {
+        if (_gameStage == 0)
+        {
+            _controller.NPCTrigger(_dialoguePanel1);
+        }
 
+        else if (_gameStage == 1)
+        {
+            _controller.NPCTrigger(_dialoguePanel2);
+        }
+
+    }
+    public void GameMomentEnd()
+    {
+        if (_gameStage == 0)
+        {
+            _controller.NPCTriggerOff(_dialoguePanel1);
+        }
+
+        else if (_gameStage == 1)
+        {
+            _controller.NPCTriggerOff(_dialoguePanel2);
+        }
+
+    }
 
 
 }

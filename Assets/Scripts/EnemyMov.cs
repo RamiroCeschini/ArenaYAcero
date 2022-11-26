@@ -39,13 +39,18 @@ public class EnemyMov : MonoBehaviour
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
-        Invoke("WhatToDo", 2f);
+        _anim = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+        _playerSword = GameObject.FindGameObjectWithTag("WeaponHolder").GetComponent<WeaponController>();
+        _healthBar = GameObject.FindGameObjectWithTag("EnemyBar").GetComponent<HealthBar>();
+        _killCounter = GameObject.FindGameObjectWithTag("KillCounter").GetComponent<KillCounter>();
+        _target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
+        Invoke("WhatToDo", 2f);
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
 
-        _audioSource = GetComponent<AudioSource>();
-
+      
     }
 
     void WhatToDo()

@@ -23,14 +23,20 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public int GameStateRead()
+    public static int GameStateRead()
     {
-        return GamePhase;
+        return Instance.GamePhase;
     }
 
-    public void PhaseChange()
+    public static void PhaseChange()
     {
-        GamePhase++;
+        Instance.GamePhase++;
         Debug.Log("Gamephase +1");
     }
+
+    public static void RestartGame()
+    {
+        Instance.GamePhase = 0;
+    }
+
 }

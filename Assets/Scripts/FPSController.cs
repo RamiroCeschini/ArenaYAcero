@@ -12,6 +12,7 @@ public class FPSController : MonoBehaviour
     public float _runSpeed = 10.0f;
     public float _jumpSpeed = 8.0f;
     public float _gravity = 20.0f;
+    public bool _isDeath;
 
     [Header("Opciones de Camara")]
     public Camera _cam;
@@ -27,7 +28,13 @@ public class FPSController : MonoBehaviour
 
     void Start()
     {
-       Cursor.lockState = CursorLockMode.Locked;
+        _isDeath = false;
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        _minRotation = -65f;
+        _maxRotation = 60f;
+        _mouseHorizontal = 3f;
+        _mouseVertical = 2f;
         _characterControler = GetComponent<CharacterController>();
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
@@ -75,6 +82,7 @@ public class FPSController : MonoBehaviour
 
     public int _maxHealth = 100;
     public int _currentHealth;
+    public GameObject _deathMenu;
 
     [Header("Audio")]
     public AudioClip _hitSound;
@@ -88,6 +96,8 @@ public class FPSController : MonoBehaviour
         _currentHealth -= damage;
 
         _healthBar.SetHealth(_currentHealth);
+
+        CheckHealth();
     }
 
     public LobbyController _lobby;
@@ -97,7 +107,22 @@ public class FPSController : MonoBehaviour
         if (collider.CompareTag("NPC"))
         {
             Debug.Log("Toco");
-            _lobby.NPCTrigger();
+            _lobby.GameMomentStart();
+        }
+    }
+
+    public void CheckHealth()
+    {
+        if (_currentHealth <= 0 && _isDeath == false)
+        {
+            _deathMenu.SetActive(true);
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            _minRotation = 0f;
+            _maxRotation = 0f;  
+            _mouseHorizontal = 0f;
+            _mouseVertical = 0f;
+            _isDeath = true;
         }
     }
 }

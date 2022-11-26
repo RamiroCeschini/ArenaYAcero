@@ -9,6 +9,8 @@ TagManager:
   - PlayerSword
   - WeaponHolder
   - NPC
+  - EnemyBar
+  - KillCounter
   layers:
   - Default
   - TransparentFX

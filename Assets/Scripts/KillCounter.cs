@@ -12,6 +12,7 @@ public class KillCounter : MonoBehaviour
     public int _killCount;
     public int _totalEnemies;
     public Fade _fadeControll;
+    public int _gameState;
 
     private void Start()
     {
@@ -27,17 +28,35 @@ public class KillCounter : MonoBehaviour
         LevelComplete();
     }
 
+    public void RefreshTotal()
+    {
+        _totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        _killNumber.text = _killCount + "/" + _totalEnemies;
+        _killNumberShadow.text = _killCount + "/" + _totalEnemies;
+    }
+
     public void LevelComplete()
     {
         if (_killCount == _totalEnemies)
         {
+            GameState.PhaseChange();
+            _gameState = GameState.GameStateRead();
             Invoke("ChangeScene", 2f);
         }
     }
 
     public void ChangeScene()
     {
-        _fadeControll.FadeToLevel(0);
+        if (_gameState < 2)
+        {
+            _fadeControll.FadeToLevel(1);
+        }
+        
+        else
+        {
+            _fadeControll.FadeToLevel(3);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
 }

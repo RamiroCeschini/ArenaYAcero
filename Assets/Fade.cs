@@ -11,12 +11,13 @@ public class Fade : MonoBehaviour
     public void FadeToLevel(int levelIndex)
     {
         _fadeAnimator.SetTrigger("FadeOut");
-        _levelToLoad = levelIndex;  
+        _levelToLoad = levelIndex;
+        
     }
 
     public void OnFadeComplete()
     {
         SceneManager.LoadScene(_levelToLoad);
-        GameState.Instance.PhaseChange();
     }
+
 }
