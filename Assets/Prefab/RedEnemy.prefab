@@ -665,6 +665,8 @@ MonoBehaviour:
   _currentHealth: 0
   _playerSword: {fileID: 0}
   _killCounter: {fileID: 0}
+  _redIcon: {fileID: 0}
+  _enemyType: 1
 --- !u!195 &8984019739610238040
 NavMeshAgent:
   m_ObjectHideFlags: 0

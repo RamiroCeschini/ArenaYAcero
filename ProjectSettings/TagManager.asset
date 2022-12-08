@@ -11,6 +11,8 @@ TagManager:
   - NPC
   - EnemyBar
   - KillCounter
+  - IconChanger
+  - Fade
   layers:
   - Default
   - TransparentFX

@@ -43,18 +43,19 @@ public class KillCounter : MonoBehaviour
             _gameState = GameState.GameStateRead();
             Invoke("ChangeScene", 2f);
         }
+
     }
 
     public void ChangeScene()
     {
-        if (_gameState < 2)
+        if (_gameState < 3)
         {
-            _fadeControll.FadeToLevel(1);
+            _fadeControll.FadeToLevel(2);
         }
         
         else
         {
-            _fadeControll.FadeToLevel(3);
+            _fadeControll.FadeToLevel(4);
             Cursor.lockState = CursorLockMode.None;
         }
     }

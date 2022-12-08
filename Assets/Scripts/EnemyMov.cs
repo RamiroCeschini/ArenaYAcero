@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyMov : MonoBehaviour
 {
@@ -27,12 +28,13 @@ public class EnemyMov : MonoBehaviour
 
 
     [Header("Health Bar")]
-
     public HealthBar _healthBar;
     public int _maxHealth = 60;
     public int _currentHealth;
     public WeaponController _playerSword;
     public KillCounter _killCounter;
+    public GameObject _redIcon;
+    public int _enemyType;
 
 
 
@@ -45,11 +47,11 @@ public class EnemyMov : MonoBehaviour
         _healthBar = GameObject.FindGameObjectWithTag("EnemyBar").GetComponent<HealthBar>();
         _killCounter = GameObject.FindGameObjectWithTag("KillCounter").GetComponent<KillCounter>();
         _target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        _redIcon = GameObject.FindGameObjectWithTag("IconChanger");
 
         Invoke("WhatToDo", 2f);
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
-
       
     }
 
@@ -122,6 +124,15 @@ public class EnemyMov : MonoBehaviour
             _audioSource.PlayOneShot(_hitSound);
 
             Debug.Log("Causo Daño");
+
+            if (_enemyType == 0)
+            {
+                _redIcon.SetActive(false);
+            }
+            else if (_enemyType == 1)
+            {
+                _redIcon.SetActive(true);
+            }
 
             if (_currentHealth <= 0)
             {

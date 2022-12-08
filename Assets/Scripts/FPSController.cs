@@ -70,6 +70,11 @@ public class FPSController : MonoBehaviour
            
         }   
 
+        if (Input.GetKeyDown(KeyCode.Escape) && _isDeath == false)
+        {
+            PauseGame(1);
+        }
+
       _move.y -= _gravity * Time.deltaTime;
 
         _characterControler.Move(_move * Time.deltaTime);
@@ -83,6 +88,7 @@ public class FPSController : MonoBehaviour
     public int _maxHealth = 100;
     public int _currentHealth;
     public GameObject _deathMenu;
+    public GameObject _pauseMenu;
 
     [Header("Audio")]
     public AudioClip _hitSound;
@@ -115,14 +121,44 @@ public class FPSController : MonoBehaviour
     {
         if (_currentHealth <= 0 && _isDeath == false)
         {
+            PauseGame(0);
+        }
+    }
+
+    public void PauseGame(int pauseOrDeath)
+    {
+        if (pauseOrDeath == 0)
+        {
             _deathMenu.SetActive(true);
             Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             _minRotation = 0f;
-            _maxRotation = 0f;  
+            _maxRotation = 0f;
             _mouseHorizontal = 0f;
             _mouseVertical = 0f;
             _isDeath = true;
+        }
+
+        if (pauseOrDeath == 1)
+        {
+            _pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            _minRotation = 0f;
+            _maxRotation = 0f;
+            _mouseHorizontal = 0f;
+            _mouseVertical = 0f;
+        }
+
+        if (pauseOrDeath == 2)
+        {
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            _minRotation = -65f;
+            _maxRotation = 60f;
+            _mouseHorizontal = 3f;
+            _mouseVertical = 2f;
         }
     }
 }
